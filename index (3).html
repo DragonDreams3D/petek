@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petek 1855 — кожаные аксессуары в Минске</title>
+<meta name="description" content="Официальный представитель Petek 1855 в Беларуси. Кожаные портфели, сумки, кошельки, портмоне, ремни и визитницы.">
+<style>
+  :root {
+    --bg: #f5f2ec;
+    --card: #ffffff;
+    --ink: #1c1915;
+    --muted: #7a7166;
+    --line: #e4ddd2;
+    --accent: #8a4b2a;      /* коньячная кожа */
+    --accent-2: #c9a27a;
+    --blue: #3e6284;
+    --radius: 18px;
+    --shadow: 0 1px 2px rgba(28,25,21,.05), 0 8px 24px -12px rgba(28,25,21,.18);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--ink); font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif; line-height: 1.45; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  button, input, select { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  img { display: block; max-width: 100%; }
+
+  /* ---------- Header ---------- */
+  .top {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(245,242,236,.88); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .top-in { max-width: 1320px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; gap: 24px; }
+  .brand { display: flex; flex-direction: column; line-height: 1; }
+  .brand b { font-family: Georgia, "Times New Roman", serif; font-size: 22px; letter-spacing: .04em; }
+  .brand span { font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+  .nav { display: flex; gap: 22px; margin-left: 24px; font-size: 14px; }
+  .nav a { color: var(--muted); transition: color .2s; }
+  .nav a:hover, .nav a.on { color: var(--ink); }
+  .search {
+    margin-left: auto; position: relative; width: min(340px, 36vw);
+  }
+  .search input {
+    width: 100%; padding: 12px 16px 12px 42px; border-radius: 999px; border: 1px solid var(--line);
+    background: #fff; outline: none; transition: border-color .2s, box-shadow .2s;
+  }
+  .search input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(138,75,42,.12); }
+  .search svg { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+  .phone { font-size: 14px; font-weight: 600; white-space: nowrap; }
+  .filter-toggle { display: none; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    max-width: 1320px; margin: 0 auto; padding: 48px 24px 28px;
+    display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center;
+  }
+  .hero h1 { font-family: Georgia, "Times New Roman", serif; font-weight: 400; font-size: clamp(40px, 5.4vw, 72px); line-height: 1.02; letter-spacing: -.01em; }
+  .hero h1 em { color: var(--accent); }
+  .hero p { margin-top: 18px; color: var(--muted); max-width: 460px; font-size: 16px; }
+  .hero-cta { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; border-radius: 999px; font-weight: 600; font-size: 15px; border: 1px solid var(--ink); background: var(--ink); color: #fff; transition: transform .2s, background .2s; }
+  .btn:hover { transform: translateY(-1px); background: var(--blue); border-color: var(--blue); }
+  .btn.ghost { background: transparent; color: var(--ink); }
+  .btn.ghost:hover { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .hero-collage { position: relative; height: 430px; }
+  .hero-collage .c {
+    position: absolute; background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+    overflow: hidden; padding: 14px; transition: transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .hero-collage .c img { width: 100%; height: 100%; object-fit: contain; }
+  .hero-collage .c:nth-child(1) { width: 52%; height: 62%; left: 0; top: 4%; transform: rotate(-3deg); }
+  .hero-collage .c:nth-child(2) { width: 46%; height: 56%; right: 0; top: 0; transform: rotate(4deg); }
+  .hero-collage .c:nth-child(3) { width: 50%; height: 52%; left: 18%; bottom: 0; transform: rotate(1deg); }
+  .hero-collage .c:hover { transform: rotate(0) scale(1.03); z-index: 2; }
+
+  /* ---------- Trust bar ---------- */
+  .trust { max-width: 1320px; margin: 0 auto; padding: 0 24px 8px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .trust div { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; font-size: 14px; }
+  .trust b { display: block; font-size: 15px; margin-bottom: 2px; }
+  .trust span { color: var(--muted); }
+
+  /* ---------- Catalog layout ---------- */
+  .catalog-wrap { max-width: 1320px; margin: 0 auto; padding: 28px 24px 60px; display: grid; grid-template-columns: 280px 1fr; gap: 32px; align-items: start; }
+  .sidebar { position: sticky; top: 92px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; max-height: calc(100vh - 110px); overflow: auto; }
+  .sidebar h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .16em; color: var(--muted); margin: 22px 0 12px; font-weight: 700; }
+  .sidebar h3:first-of-type { margin-top: 0; }
+  .sidebar-head { display: flex; justify-content: space-between; align-items: center; }
+  .sidebar-head b { font-size: 17px; }
+  .reset { background: none; border: none; color: var(--accent); font-size: 13px; font-weight: 600; padding: 4px; }
+  .reset:disabled { color: #bbb; cursor: default; }
+
+  .seg { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--bg); border-radius: 999px; padding: 4px; gap: 4px; }
+  .seg button { border: none; background: transparent; padding: 9px 4px; border-radius: 999px; font-size: 12.5px; color: var(--muted); font-weight: 600; transition: all .2s; }
+  .seg button.on { background: var(--ink); color: #fff; }
+
+  .cats { display: grid; gap: 4px; }
+  .cat {
+    display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 10px; cursor: pointer;
+    font-size: 14px; user-select: none; transition: background .15s;
+  }
+  .cat:hover { background: var(--bg); }
+  .swatches { display: grid; gap: 2px; }
+  .sw-opt { display: flex; align-items: center; gap: 11px; width: 100%; padding: 8px 10px; border-radius: 10px; background: none; border: none; text-align: left; font-size: 14px; transition: background .15s, color .15s; }
+  .sw-opt:hover { background: var(--bg); }
+  .sw-opt .dot { width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(0,0,0,.18); flex: none; transition: box-shadow .2s; }
+  .sw-opt.on { color: var(--blue); }
+  .sw-opt.on .dot { box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px var(--blue); }
+  .sw-opt .n { margin-left: auto; color: var(--muted); font-size: 12px; background: var(--bg); padding: 2px 8px; border-radius: 999px; }
+  .cat input { appearance: none; width: 18px; height: 18px; border: 1.5px solid #cfc6b8; border-radius: 6px; display: grid; place-items: center; transition: all .15s; flex: none; }
+  .cat input:checked { background: var(--blue); border-color: var(--blue); }
+  .cat input:checked::after { content: ""; width: 5px; height: 9px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg) translate(-1px,-1px); }
+  .cat .n { margin-left: auto; color: var(--muted); font-size: 12px; background: var(--bg); padding: 2px 8px; border-radius: 999px; }
+
+  .range-vals { display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; margin-bottom: 14px; }
+  .dual { position: relative; height: 26px; }
+  .dual input[type=range] {
+    position: absolute; left: 0; top: 0; width: 100%; height: 26px; margin: 0;
+    -webkit-appearance: none; appearance: none; background: none; pointer-events: none; outline: none;
+  }
+  .dual input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; pointer-events: all; width: 20px; height: 20px; border-radius: 50%;
+    background: #fff; border: 2px solid var(--accent); box-shadow: 0 2px 6px rgba(0,0,0,.15); cursor: grab;
+  }
+  .dual input[type=range]::-moz-range-thumb { pointer-events: all; width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 2px solid var(--accent); }
+  .dual .track { position: absolute; top: 11px; left: 0; right: 0; height: 4px; background: var(--line); border-radius: 4px; }
+  .dual .fill { position: absolute; top: 11px; height: 4px; background: var(--accent); border-radius: 4px; }
+  .price-presets { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .price-presets button { border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 6px 12px; font-size: 12.5px; }
+  .price-presets button.on { border-color: var(--accent); color: var(--accent); background: rgba(138,75,42,.06); }
+
+  .toggle { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; font-size: 14px; cursor: pointer; }
+  .switch { width: 40px; height: 24px; border-radius: 999px; background: var(--line); position: relative; transition: background .2s; flex: none; }
+  .switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.2); transition: transform .2s; }
+  .toggle input { display: none; }
+  .toggle input:checked + .switch { background: var(--accent); }
+  .toggle input:checked + .switch::after { transform: translateX(16px); }
+
+  /* ---------- Results ---------- */
+  .results-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+  .results-head h2 { font-family: Georgia, "Times New Roman", serif; font-weight: 400; font-size: 34px; }
+  .results-head h2 small { font-family: inherit; font-size: 15px; color: var(--muted); margin-left: 8px; }
+  .sort { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); }
+  .sort select { padding: 10px 14px; border-radius: 999px; border: 1px solid var(--line); background: #fff; outline: none; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; min-height: 4px; }
+  .chip-active { display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 1px solid var(--line); padding: 6px 10px 6px 14px; border-radius: 999px; font-size: 13px; }
+  .chip-active button { border: none; background: var(--bg); width: 20px; height: 20px; border-radius: 50%; line-height: 1; font-size: 13px; }
+  .chip-active button:hover { background: var(--blue); color: #fff; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; }
+  .card {
+    background: var(--card); border-radius: var(--radius); border: 1px solid transparent; overflow: hidden;
+    display: flex; flex-direction: column; transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s, border-color .35s;
+    animation: fade .4s ease both;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--line); }
+  .card .ph { position: relative; aspect-ratio: 1 / 1; background: #f4f0e9; display: grid; place-items: center; padding: 14px; cursor: pointer; }
+  .card .ph img { width: 100%; height: 100%; object-fit: contain; transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+  .card:hover .ph img { transform: scale(1.05); }
+  .badge { position: absolute; top: 12px; left: 12px; background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .06em; padding: 5px 10px; border-radius: 999px; text-transform: uppercase; }
+  .quick { position: absolute; left: 12px; right: 12px; bottom: 12px; padding: 11px; border-radius: 12px; border: none; background: var(--ink); color: #fff; font-weight: 600; font-size: 14px; opacity: 0; transform: translateY(8px); transition: all .3s; }
+  .card:hover .quick { opacity: 1; transform: none; }
+  .quick:hover { background: var(--blue); }
+  .card .body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+  .card .cat-t { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+  .card .name { font-weight: 600; font-size: 15px; line-height: 1.3; }
+  .card .row { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 10px; }
+  .price { font-weight: 700; font-size: 17px; }
+  .price small { font-size: 12px; font-weight: 500; color: var(--muted); margin-left: 2px; }
+  .mini-btn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: #fff; display: grid; place-items: center; transition: all .2s; }
+  .mini-btn:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+  @keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  .empty { grid-column: 1 / -1; text-align: center; padding: 70px 20px; background: var(--card); border-radius: var(--radius); border: 1px dashed var(--line); color: var(--muted); }
+  .empty b { display: block; color: var(--ink); font-size: 18px; margin-bottom: 6px; }
+
+  /* ---------- Modal ---------- */
+  .modal { position: fixed; inset: 0; background: rgba(28,25,21,.5); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 100; backdrop-filter: blur(4px); }
+  .modal.open { display: flex; animation: fade .25s ease; }
+  .modal-box { background: var(--card); border-radius: 24px; max-width: 860px; width: 100%; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; position: relative; animation: pop .35s cubic-bezier(.2,.8,.2,1); }
+  @keyframes pop { from { transform: translateY(20px) scale(.98); opacity: 0; } to { transform: none; opacity: 1; } }
+  .modal-img { background: #f4f0e9; display: grid; place-items: center; padding: 24px; min-height: 380px; }
+  .modal-img img { width: 100%; height: 100%; object-fit: contain; max-height: 480px; }
+  .modal-info { padding: 34px 30px; display: flex; flex-direction: column; gap: 10px; }
+  .modal-info .cat-t { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
+  .modal-info h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 400; font-size: 30px; line-height: 1.15; }
+  .modal-info .price { font-size: 28px; margin-top: 6px; }
+  .modal-info p { color: var(--muted); font-size: 14px; }
+  .modal-info .btn { margin-top: auto; justify-content: center; }
+  .modal-info .btn + .btn { margin-top: 10px; }
+  .close { position: absolute; top: 14px; right: 14px; width: 38px; height: 38px; border-radius: 50%; border: none; background: #fff; box-shadow: var(--shadow); font-size: 18px; z-index: 2; }
+  @media (max-width: 720px) { .modal-box { grid-template-columns: 1fr; max-height: 92vh; overflow: auto; } .modal-img { min-height: 280px; } }
+
+  /* ---------- Footer ---------- */
+  footer { background: var(--ink); color: #d9d2c6; padding: 56px 24px 30px; }
+  .foot { max-width: 1320px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; }
+  footer h4 { color: #fff; font-size: 13px; text-transform: uppercase; letter-spacing: .14em; margin-bottom: 14px; font-weight: 700; }
+  footer a, footer p { display: block; font-size: 14px; margin-bottom: 8px; color: #bdb5a7; }
+  footer a:hover { color: #fff; }
+  .foot-bottom { max-width: 1320px; margin: 36px auto 0; padding-top: 20px; border-top: 1px solid #3a342c; font-size: 12px; color: #8a8276; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+
+  /* ---------- Mobile ---------- */
+  .scrim { display: none; }
+  @media (max-width: 1020px) {
+    .catalog-wrap { grid-template-columns: 1fr; }
+    .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: min(340px, 88vw); max-height: none; z-index: 80; border-radius: 0 var(--radius) var(--radius) 0; transform: translateX(-105%); transition: transform .35s cubic-bezier(.2,.8,.2,1); }
+    .sidebar.open { transform: none; }
+    .scrim.open { display: block; position: fixed; inset: 0; background: rgba(28,25,21,.4); z-index: 70; }
+    .filter-toggle { display: inline-flex; }
+    .nav { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-collage { height: 360px; }
+    .trust { grid-template-columns: repeat(2, 1fr); }
+    .phone { display: none; }
+    .foot { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .top-in { padding: 12px 16px; gap: 12px; }
+    .search { width: auto; flex: 1; }
+    .search input { padding: 10px 12px 10px 38px; }
+    .catalog-wrap, .hero, .trust { padding-left: 16px; padding-right: 16px; }
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .card .body { padding: 12px; }
+    .card .name { font-size: 14px; }
+    .card .quick { display: none; }
+    .card .mini-btn { display: none; }
+    .modal-info { padding: 24px 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <a href="#" class="brand"><b>Petek</b><span>1855 · Беларусь</span></a>
+    <button class="filter-toggle btn ghost" id="openFilters" style="padding:10px 16px;font-size:14px;">Фильтры</button>
+    <nav class="nav">
+      <a href="#" data-sec="all" class="navlink">Все</a>
+      <a href="#" data-sec="man" class="navlink">Для него</a>
+      <a href="#" data-sec="women" class="navlink">Для неё</a>
+    </nav>
+    <label class="search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input id="q" type="search" placeholder="Поиск по модели или названию" autocomplete="off">
+    </label>
+    <a class="phone" href="tel:+375291494747">+375 29 149-27-47</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>Кожа, которая <em>служит годами</em></h1>
+    <p>Оригинальные аксессуары Petek 1855 в Минске: портфели, сумки, кошельки, портмоне, ремни и визитницы из натуральной кожи.</p>
+    <div class="hero-cta">
+      <a href="#catalog" class="btn" id="heroCatalog">Смотреть каталог</a>
+      <a href="#catalog" class="btn ghost" data-sec="women" id="heroWomen">Для неё</a>
+    </div>
+  </div>
+  <div class="hero-collage" id="collage"></div>
+</section>
+
+<div class="trust">
+  <div><b>Оригинал</b><span>Официальный представитель бренда</span></div>
+  <div><b>Натуральная кожа</b><span>Гладкая и с рельефом</span></div>
+  <div><b>Ручная работа</b><span>Фирменная фурнитура</span></div>
+  <div><b>Доставка</b><span>По всей Беларуси</span></div>
+</div>
+
+<main class="catalog-wrap" id="catalog">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <b>Фильтры</b>
+      <button class="reset" id="resetAll">Сбросить</button>
+    </div>
+
+    <h3>Для кого</h3>
+    <div class="seg" id="secSeg">
+      <button data-sec="all" class="on">Все</button>
+      <button data-sec="man">Для него</button>
+      <button data-sec="women">Для неё</button>
+    </div>
+
+    <h3>Категория</h3>
+    <div class="cats" id="cats"></div>
+
+    <h3>Цвет</h3>
+    <div class="swatches" id="colors"></div>
+
+    <h3>Цена, BYN</h3>
+    <div class="range-vals"><span id="minOut">40</span><span id="maxOut">1720</span></div>
+    <div class="dual">
+      <div class="track"></div>
+      <div class="fill" id="fill"></div>
+      <input type="range" id="minR" min="40" max="1720" step="5" value="40">
+      <input type="range" id="maxR" min="40" max="1720" step="5" value="1720">
+    </div>
+    <div class="price-presets" id="presets">
+      <button data-min="40" data-max="150">до 150</button>
+      <button data-min="150" data-max="400">150–400</button>
+      <button data-min="400" data-max="1000">400–1000</button>
+      <button data-min="1000" data-max="1720">от 1000</button>
+    </div>
+
+    <h3>Особенности</h3>
+    <label class="toggle">Только новинки <input type="checkbox" id="newOnly"><span class="switch"></span></label>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <section>
+    <div class="results-head">
+      <h2 id="title">Каталог <small id="count"></small></h2>
+      <div class="sort">
+        Сортировка
+        <select id="sort">
+          <option value="default">По умолчанию</option>
+          <option value="price-asc">Сначала дешевле</option>
+          <option value="price-desc">Сначала дороже</option>
+          <option value="name">По названию</option>
+        </select>
+      </div>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+</main>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <button class="close" id="closeModal" aria-label="Закрыть">✕</button>
+    <div class="modal-img"><img id="mImg" alt=""></div>
+    <div class="modal-info">
+      <div class="cat-t" id="mCat"></div>
+      <h3 id="mName"></h3>
+      <div class="price" id="mPrice"></div>
+      <p>Оригинальное изделие Petek 1855 из натуральной кожи. Наличие и размеры уточняйте у менеджера.</p>
+      <a class="btn" id="mBuy" href="#" target="_blank" rel="noopener">Открыть на petek.by</a>
+      <a class="btn ghost" href="tel:+375291494747">Позвонить в магазин</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot">
+    <div>
+      <h4>Petek 1855</h4>
+      <p>Официальный представитель бренда Petek в Беларуси. Оригинальные кожаные аксессуары для женщин и мужчин.</p>
+    </div>
+    <div>
+      <h4>Контакты</h4>
+      <a href="tel:+375291494747">+375 (29) 149-27-47</a>
+      <a href="tel:+375257717474">+375 (25) 771-74-74</a>
+      <a href="tel:+375172267044">+375 (17) 226-70-44</a>
+    </div>
+    <div>
+      <h4>Каталог</h4>
+      <a href="#catalog" data-sec="man" class="navlink">Для него</a>
+      <a href="#catalog" data-sec="women" class="navlink">Для неё</a>
+      <a href="https://petek.by/contacts" target="_blank" rel="noopener">Адреса магазинов</a>
+    </div>
+  </div>
+  <div class="foot-bottom"><span>© 2026 Petek 1855 · Минск</span><span>Цены указаны в белорусских рублях и могут меняться</span></div>
+</footer>
+
+<script src="products.js"></script>
+<script>
+(() => {
+  const P = window.PRODUCTS;
+  const ALL_MIN = 40, ALL_MAX = 1720;
+  const SEC_NAME = { man: 'Для него', women: 'Для неё', all: 'Все' };
+  const CAT_ORDER = ['Портфели','Сумки','Барсетки','Портмоне','Кошельки','Ремни','Визитницы','Ключницы','Обложки'];
+
+  const state = { sec: 'all', cats: new Set(), colors: new Set(), min: ALL_MIN, max: ALL_MAX, newOnly: false, q: '', sort: 'default' };
+
+  const COLOR_HEX = {
+    'Чёрный': '#141414', 'Коричневый': '#6b4226', 'Бордовый': '#6d1f2a', 'Красный': '#b3262e',
+    'Оранжевый': '#e07b39', 'Жёлтый': '#e8c547', 'Зелёный': '#3f7a4f', 'Синий': '#3e6284',
+    'Розовый': '#e8a0b4', 'Бежевый': '#d8c3a5', 'Белый': '#f5f5f5', 'Серый': '#9a9a9a'
+  };
+  const COLOR_ORDER = Object.keys(COLOR_HEX);
+  const colorsAll = [...new Set(P.flatMap(p => p.colors))].filter(c => COLOR_HEX[c]).sort((a, b) => COLOR_ORDER.indexOf(a) - COLOR_ORDER.indexOf(b));
+
+  const $ = (s) => document.querySelector(s);
+  const fmt = (n) => Math.round(n).toLocaleString('ru-RU');
+
+  // ---------- Категории ----------
+  const catsAll = [...new Set(P.map(p => p.cat))].sort((a,b) => CAT_ORDER.indexOf(a) - CAT_ORDER.indexOf(b));
+
+  function renderCats() {
+    const base = P.filter(p => state.sec === 'all' || p.sec === state.sec);
+    $('#cats').innerHTML = catsAll.map(c => {
+      const n = base.filter(p => p.cat === c).length;
+      if (!n) return '';
+      const on = state.cats.has(c);
+      return `<label class="cat"><input type="checkbox" data-cat="${c}" ${on ? 'checked' : ''}><span>${c}</span><span class="n">${n}</span></label>`;
+    }).join('');
+  }
+
+  function renderColors() {
+    const base = P.filter(p => state.sec === 'all' || p.sec === state.sec);
+    $('#colors').innerHTML = colorsAll.map(c => {
+      const n = base.filter(p => p.colors.includes(c)).length;
+      if (!n) return '';
+      const on = state.colors.has(c);
+      return `<button class="sw-opt ${on ? 'on' : ''}" data-color="${c}" title="${c}"><span class="dot" style="background:${COLOR_HEX[c]}"></span><span>${c}</span><span class="n">${n}</span></button>`;
+    }).join('');
+  }
+
+  // ---------- Фильтрация ----------
+  function filtered() {
+    const q = state.q.trim().toLowerCase();
+    let list = P.filter(p =>
+      (state.sec === 'all' || p.sec === state.sec) &&
+      (state.cats.size === 0 || state.cats.has(p.cat)) &&
+      (state.colors.size === 0 || p.colors.some(c => state.colors.has(c))) &&
+      p.price >= state.min && p.price <= state.max &&
+      (!state.newOnly || p.badges.includes('Новинка')) &&
+      (!q || p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q))
+    );
+    if (state.sort === 'price-asc') list.sort((a,b) => a.price - b.price);
+    if (state.sort === 'price-desc') list.sort((a,b) => b.price - a.price);
+    if (state.sort === 'name') list.sort((a,b) => a.name.localeCompare(b.name, 'ru'));
+    return list;
+  }
+
+  // ---------- Сетка ----------
+  function card(p, i) {
+    const badge = p.badges.includes('Новинка') ? '<span class="badge">Новинка</span>' : '';
+    return `
+      <article class="card" style="animation-delay:${Math.min(i,12)*30}ms">
+        <div class="ph" data-id="${p.id}">
+          ${badge}
+          <img loading="lazy" src="${p.img}" alt="${p.name}">
+          <button class="quick" data-id="${p.id}">Быстрый просмотр</button>
+        </div>
+        <div class="body">
+          <div class="cat-t">${p.cat} · ${SEC_NAME[p.sec]}</div>
+          <div class="name">${p.name}</div>
+          <div class="row">
+            <div class="price">${fmt(p.price)}<small> BYN</small></div>
+            <button class="mini-btn" data-id="${p.id}" aria-label="Подробнее">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+      </article>`;
+  }
+
+  function renderGrid() {
+    const list = filtered();
+    $('#grid').innerHTML = list.length
+      ? list.map(card).join('')
+      : `<div class="empty"><b>Ничего не найдено</b>Попробуйте изменить фильтры или <a href="#" id="emptyReset" style="color:var(--accent);font-weight:600">сбросить всё</a>.</div>`;
+    $('#count').textContent = `${list.length} из ${P.length}`;
+    $('#title').firstChild.textContent = (state.sec === 'all' ? 'Каталог' : SEC_NAME[state.sec]) + ' ';
+    renderChips();
+  }
+
+  function renderChips() {
+    const chips = [];
+    if (state.sec !== 'all') chips.push({ k: 'sec', label: SEC_NAME[state.sec] });
+    state.cats.forEach(c => chips.push({ k: 'cat', v: c, label: c }));
+    state.colors.forEach(c => chips.push({ k: 'color', v: c, label: c }));
+    if (state.min > ALL_MIN || state.max < ALL_MAX) chips.push({ k: 'price', label: `${fmt(state.min)}–${fmt(state.max)} BYN` });
+    if (state.newOnly) chips.push({ k: 'new', label: 'Новинки' });
+    if (state.q) chips.push({ k: 'q', label: `«${state.q}»` });
+    $('#chips').innerHTML = chips.map(c =>
+      `<span class="chip-active">${c.label}<button data-k="${c.k}" data-v="${c.v || ''}" aria-label="Убрать">✕</button></span>`).join('');
+    const any = chips.length > 0 || state.sort !== 'default';
+    $('#resetAll').disabled = !any;
+  }
+
+  // ---------- Цена ----------
+  function syncPrice(from) {
+    let a = +$('#minR').value, b = +$('#maxR').value;
+    if (a > b - 20) { if (from === 'min') a = b - 20; else b = a + 20; }
+    $('#minR').value = a; $('#maxR').value = b;
+    state.min = a; state.max = b;
+    $('#minOut').textContent = fmt(a) + ' BYN';
+    $('#maxOut').textContent = fmt(b) + ' BYN';
+    const span = ALL_MAX - ALL_MIN;
+    const l = ((a - ALL_MIN) / span) * 100, r = ((b - ALL_MIN) / span) * 100;
+    $('#fill').style.left = l + '%';
+    $('#fill').style.width = (r - l) + '%';
+    document.querySelectorAll('#presets button').forEach(btn => {
+      btn.classList.toggle('on', +btn.dataset.min === a && +btn.dataset.max === b);
+    });
+  }
+
+  // ---------- Состояние в адресной строке ----------
+  function saveHash() {
+    const p = new URLSearchParams();
+    if (state.sec !== 'all') p.set('sec', state.sec);
+    if (state.cats.size) p.set('cat', [...state.cats].join(','));
+    if (state.colors.size) p.set('color', [...state.colors].join(','));
+    if (state.min > ALL_MIN) p.set('min', state.min);
+    if (state.max < ALL_MAX) p.set('max', state.max);
+    if (state.newOnly) p.set('new', '1');
+    if (state.q) p.set('q', state.q);
+    if (state.sort !== 'default') p.set('sort', state.sort);
+    const h = p.toString();
+    history.replaceState(null, '', h ? '#catalog?' + h : '#catalog');
+  }
+  function loadHash() {
+    if (!location.hash.startsWith('#catalog?')) return;
+    const p = new URLSearchParams(location.hash.slice(10));
+    if (p.get('sec')) state.sec = p.get('sec');
+    if (p.get('cat')) state.cats = new Set(p.get('cat').split(',').filter(c => catsAll.includes(c)));
+    if (p.get('color')) state.colors = new Set(p.get('color').split(',').filter(c => colorsAll.includes(c)));
+    if (p.get('min')) state.min = +p.get('min');
+    if (p.get('max')) state.max = +p.get('max');
+    if (p.get('new')) state.newOnly = true;
+    if (p.get('q')) state.q = p.get('q');
+    if (p.get('sort')) state.sort = p.get('sort');
+  }
+
+  // ---------- Обновление всего UI ----------
+  function refresh(scrollTop) {
+    document.querySelectorAll('#secSeg button').forEach(b => b.classList.toggle('on', b.dataset.sec === state.sec));
+    document.querySelectorAll('.navlink').forEach(b => b.classList.toggle('on', b.dataset.sec === state.sec));
+    renderCats();
+    renderColors();
+    renderGrid();
+    $('#newOnly').checked = state.newOnly;
+    $('#q').value = state.q;
+    $('#sort').value = state.sort;
+    syncPrice('');
+    saveHash();
+    if (scrollTop) document.getElementById('catalog').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ---------- Модалка ----------
+  function openModal(id) {
+    const p = P.find(x => x.id === id);
+    if (!p) return;
+    $('#mImg').src = p.img; $('#mImg').alt = p.name;
+    $('#mCat').textContent = `${p.cat} · ${SEC_NAME[p.sec]}`;
+    $('#mName').textContent = p.name;
+    $('#mPrice').innerHTML = `${fmt(p.price)} <small style="font-size:14px;color:#7a7166">BYN</small>`;
+    $('#mBuy').href = p.url;
+    $('#modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() { $('#modal').classList.remove('open'); document.body.style.overflow = ''; }
+
+  // ---------- Коллаж в hero (только фото продукции) ----------
+  const picks = [P.find(p => p.cat === 'Сумки') || P[0], P.find(p => p.sec === 'women') || P[1], P.find(p => p.cat === 'Портфели') || P[2]];
+  $('#collage').innerHTML = picks.map(p => `<div class="c"><img src="${p.img}" alt="${p.name}"></div>`).join('');
+
+  // ---------- События ----------
+  document.addEventListener('click', (e) => {
+    const sec = e.target.closest('[data-sec]');
+    if (sec && !sec.closest('#secSeg')) {
+      e.preventDefault();
+      state.sec = sec.dataset.sec;
+      state.cats.clear();
+      refresh(true);
+      if (sec.classList.contains('navlink') || sec.id === 'heroWomen') return;
+    }
+    const segBtn = e.target.closest('#secSeg button');
+    if (segBtn) { state.sec = segBtn.dataset.sec; state.cats.clear(); state.colors.clear(); refresh(false); return; }
+
+    const sw = e.target.closest('.sw-opt');
+    if (sw) {
+      const c = sw.dataset.color;
+      state.colors.has(c) ? state.colors.delete(c) : state.colors.add(c);
+      refresh(false); return;
+    }
+
+    const pre = e.target.closest('#presets button');
+    if (pre) { $('#minR').value = pre.dataset.min; $('#maxR').value = pre.dataset.max; syncPrice(''); state.min = +pre.dataset.min; state.max = +pre.dataset.max; renderGrid(); saveHash(); return; }
+
+    const chip = e.target.closest('.chip-active button');
+    if (chip) {
+      const { k, v } = chip.dataset;
+      if (k === 'sec') state.sec = 'all';
+      if (k === 'cat') state.cats.delete(v);
+      if (k === 'color') state.colors.delete(v);
+      if (k === 'price') { state.min = ALL_MIN; state.max = ALL_MAX; }
+      if (k === 'new') state.newOnly = false;
+      if (k === 'q') state.q = '';
+      refresh(false); return;
+    }
+
+    if (e.target.closest('#resetAll') || e.target.closest('#emptyReset')) {
+      e.preventDefault();
+      state.sec = 'all'; state.cats.clear(); state.colors.clear(); state.min = ALL_MIN; state.max = ALL_MAX;
+      state.newOnly = false; state.q = ''; state.sort = 'default';
+      refresh(false); return;
+    }
+
+    const quick = e.target.closest('.quick, .mini-btn, .ph');
+    if (quick && quick.dataset.id) { openModal(quick.dataset.id); return; }
+
+    if (e.target.closest('#closeModal') || e.target === $('#modal')) { closeModal(); return; }
+  });
+
+  $('#cats').addEventListener('change', (e) => {
+    const c = e.target.dataset.cat;
+    if (!c) return;
+    e.target.checked ? state.cats.add(c) : state.cats.delete(c);
+    refresh(false);
+  });
+  $('#minR').addEventListener('input', () => { syncPrice('min'); renderGrid(); saveHash(); });
+  $('#maxR').addEventListener('input', () => { syncPrice('max'); renderGrid(); saveHash(); });
+  $('#newOnly').addEventListener('change', (e) => { state.newOnly = e.target.checked; refresh(false); });
+  $('#sort').addEventListener('change', (e) => { state.sort = e.target.value; refresh(false); });
+  let t;
+  $('#q').addEventListener('input', (e) => { clearTimeout(t); t = setTimeout(() => { state.q = e.target.value; refresh(false); }, 200); });
+  $('#q').addEventListener('keydown', (e) => { if (e.key === 'Enter') { state.q = e.target.value; refresh(true); } });
+
+  // Мобильные фильтры
+  const sidebar = $('#sidebar'), scrim = $('#scrim');
+  const openF = () => { sidebar.classList.add('open'); scrim.classList.add('open'); };
+  const closeF = () => { sidebar.classList.remove('open'); scrim.classList.remove('open'); };
+  $('#openFilters').addEventListener('click', openF);
+  scrim.addEventListener('click', closeF);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeModal(); closeF(); } });
+  window.addEventListener('resize', () => { if (innerWidth > 1020) closeF(); });
+
+  // Старт
+  loadHash();
+  refresh(false);
+  window.addEventListener('hashchange', () => { loadHash(); refresh(false); });
+})();
+</script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a54af25f9f4e0230',t:'MTc5MzcwNDM3Ng=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54af25f9f4e0230',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
